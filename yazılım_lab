@@ -1,0 +1,58 @@
+def MinimumFarkBul1(dizi):
+    minimum_fark = float('inf')
+    n = len(dizi)
+    for i in range(n):
+        for j in range(i+1, n):
+            fark = abs(dizi[j] - dizi[i])
+            if fark < minimum_fark:
+                minimum_fark = fark
+    return minimum_fark
+
+def MinimumFarkBul2(dizi):
+    dizi.sort()
+    minimum_fark = float('inf')
+    n = len(dizi)
+    for i in range(n-1):
+        fark = abs(dizi[i+1] - dizi[i])
+        if fark < minimum_fark:
+            minimum_fark = fark
+    return minimum_fark
+
+def MinimumNFarkBul1(dizi):
+    minimum_farklar = []
+    n = len(dizi)
+    for i in range(n):
+        for j in range(i+1, n):
+            fark = abs(dizi[j] - dizi[i])
+            minimum_farklar.append(fark)
+    minimum_farklar.sort()
+    return minimum_farklar[:n//2]
+
+def MinimumNFarkBul2(dizi):
+    dizi.sort()
+    minimum_farklar = []
+    n = len(dizi)
+    for i in range(n-1):
+        fark = abs(dizi[i+1] - dizi[i])
+        minimum_farklar.append(fark)
+    minimum_farklar.sort()
+    return minimum_farklar[:n//2]
+
+import random
+import time
+
+def test_algoritma(algoritma, boyut):
+    dizi = [random.randint(1, 3000) for _ in range(boyut)]
+    start_time = time.time()
+    algoritma(dizi)
+    end_time = time.time()
+    sure = end_time - start_time
+    return sure
+
+dizi_boyutu = 3000
+
+print("Algoritma 1 için geçen süre:", test_algoritma(MinimumFarkBul1, dizi_boyutu))
+print("Algoritma 2 için geçen süre:", test_algoritma(MinimumFarkBul2, dizi_boyutu))
+print("Algoritma 3 için geçen süre:", test_algoritma(MinimumNFarkBul1, dizi_boyutu))
+print("Algoritma 4 için geçen süre:", test_algoritma(MinimumNFarkBul2, dizi_boyutu))
+
